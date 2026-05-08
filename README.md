@@ -1,26 +1,36 @@
 # hexgrid-gen
 
-Code generator for Eisenstein hex grid lookup tables. Generates optimized hex grid code in any language — Rust, C, Python, JS, and more — using the math from [eisenstein](https://github.com/SuperInstance/eisenstein).
+**Code generator for Eisenstein hex grid lookup tables. Outputs Rust, C, Python, JS, or JSON.**
 
-## Eisenstein Ecosystem
+Precompute hex disk coordinates, rotation tables, and D₆ symmetry maps once and emit them as static arrays in whatever language you need. The tables are exact — generated from Eisenstein integer arithmetic, not floating-point approximation.
 
-Part of the **[Eisenstein hex integer ecosystem](https://github.com/SuperInstance/eisenstein)** — exact hex arithmetic from microcontrollers to browsers to formal verification.
+## Quickstart
 
-| Project | Description |
-|---------|-------------|
-| **[eisenstein](https://github.com/SuperInstance/eisenstein)** | Core Rust crate — exact hex arithmetic, zero deps |
-| **[eisenstein-c](https://github.com/SuperInstance/eisenstein-c)** | Same math, for microcontrollers. 1KB `.text`. |
-| **[eisenstein-wasm](https://github.com/SuperInstance/eisenstein-wasm)** | Same math, for browsers and Node.js |
-| **[eisenstein-bench](https://github.com/SuperInstance/eisenstein-bench)** | Benchmark all implementations side-by-side |
-| **[eisenstein-fuzz](https://github.com/SuperInstance/eisenstein-fuzz)** | Property-based fuzzing across the ecosystem |
-| **[eisenstein-do178c](https://github.com/SuperInstance/eisenstein-do178c)** | DO-178C formally verified for safety-critical systems |
-| **[arm-neon-eisenstein-bench](https://github.com/SuperInstance/arm-neon-eisenstein-bench)** | 4× parallel hex math on ARM NEON |
-| **[hexgrid-gen](https://github.com/SuperInstance/hexgrid-gen)** | Code generation for any language in the ecosystem |
-| **[constraint-theory-core](https://github.com/SuperInstance/constraint-theory-core)** | Production constraint framework built on Eisenstein math |
-| **[flux-lucid](https://github.com/SuperInstance/flux-lucid)** | Unified intent-directed ecosystem orchestrator |
+```bash
+# Generate a hex disk table as Rust
+hexgrid-gen disk --radius 20 --lang rust > hex_disk_20.rs
 
-**Next →** Use it in production: **[constraint-theory-core](https://github.com/SuperInstance/constraint-theory-core)**
+# Generate rotation table as C
+hexgrid-gen rotate --lang c > rotation_table.h
+
+# Generate D₆ symmetry table as Python
+hexgrid-gen symmetry --lang python > symmetry_table.py
+```
+
+## Supported Outputs
+
+| Language | Use Case |
+|----------|----------|
+| Rust | `static` arrays for no_std environments |
+| C | Embedded lookup tables for microcontrollers |
+| Python | Prototyping and simulation |
+| JavaScript | Browser-based hex grids |
+| JSON | Interchange format for cross-language pipelines |
+
+## Why Code Generation?
+
+For embedded and safety-critical systems, you want the tables at compile time, not computed at startup. `hexgrid-gen` produces the same hex coordinates the Rust crate computes at runtime, but as static data — no allocations, no init code, no runtime cost.
 
 ## License
 
-MIT
+MIT OR Apache-2.0
