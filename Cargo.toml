@@ -1,0 +1,6 @@
+[package]
+name = "hexgrid-gen"
+version = "0.1.0"
+edition = "2021"
+description = "Code generator for Eisenstein hex grid lookup tables"
+license = "MIT"
